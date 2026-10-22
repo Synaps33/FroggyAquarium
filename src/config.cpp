@@ -33,6 +33,7 @@ bool LoadConfig(const std::string& path, Config& cfg)
         if (strncasecmp(k.c_str(), "Fish", 4) == 0 && k.size() == 5 && k[4] >= '1' && k[4] <= '8')
             cfg.fish[k[4] - '1'] = v;
         else if (strcasecmp(k.c_str(), "FishCount") == 0) cfg.fishCount = atoi(v.c_str());
+        else if (strcasecmp(k.c_str(), "AllRandom") == 0) cfg.allRandom = ToBool(v);
         else if (strcasecmp(k.c_str(), "Sound") == 0) cfg.sound = ToBool(v);
         else if (strcasecmp(k.c_str(), "BubbleColumn") == 0) cfg.bubbles = ToBool(v);
         else if (strcasecmp(k.c_str(), "AutoLights") == 0) cfg.autoLights = ToBool(v);
@@ -62,6 +63,7 @@ bool SaveConfig(const std::string& path, const Config& cfg)
     fprintf(f, "# Marine Aquarium 2 settings\n");
     fprintf(f, "# FishN: random, off, or a fish name (e.g. Yellow_Tang, LionFish, Percula_Clownfish)\n");
     fprintf(f, "FishCount=%d\n", cfg.fishCount);
+    fprintf(f, "AllRandom=%d\n", cfg.allRandom ? 1 : 0);
     for (int k = 0; k < 8; k++)
         fprintf(f, "Fish%d=%s\n", k + 1, k < (int)cfg.fish.size() ? cfg.fish[k].c_str() : "random");
     fprintf(f, "Sound=%d\n", cfg.sound ? 1 : 0);

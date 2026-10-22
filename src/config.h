@@ -6,6 +6,7 @@
 struct Config {
     std::vector<std::string> fish;     // Fish1..Fish8: name, "random" or "off"
     int  fishCount = 7;                // number of fish slots used (1..8)
+    bool allRandom = false;            // AllRandom: every slot random, Fish1..8 kept
     bool sound = true;                 // Sound
     bool bubbles = true;               // BubbleColumn
     bool autoLights = true;            // AutoLights (day/night cycle)

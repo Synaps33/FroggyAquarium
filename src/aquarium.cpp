@@ -129,7 +129,7 @@ bool Aquarium::Init(const std::vector<uint8_t>& img, const PeResources* res, Ren
 
     m_slots.clear();
     for (int k = 0; k < GI(0x427ddc); k++) {
-        std::string want = k < (int)m_cfg.fish.size() ? m_cfg.fish[k] : "random";
+        std::string want = (!m_cfg.allRandom && k < (int)m_cfg.fish.size()) ? m_cfg.fish[k] : "random";
         std::string name = "< RANDOM >";
         if (strcasecmp(want.c_str(), "off") == 0) name = "< OFF >";
         else
