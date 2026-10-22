@@ -1,0 +1,29 @@
+name: build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  aarch64:
+    runs-on: ubuntu-24.04-arm
+    container: debian:trixie
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends g++ pkg-config libsdl2-dev libgles-dev libegl-dev zlib1g-dev file
+
+      - name: Build
+        run: |
+          bash build.sh
+          file build/aquarium
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: aquarium-aarch64
+          path: build/aquarium
