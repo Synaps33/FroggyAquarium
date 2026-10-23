@@ -40,7 +40,7 @@ bool AudioStart(const std::vector<uint8_t>& wav, float volume)
     }
     // convert to S16 at the source rate/channels
     SDL_AudioCVT cvt;
-    if (SDL_BuildAudioCVT(&cvt, spec.format, spec.channels, spec.freq, AUDIO_S16SYS, spec.channels, spec.freq) < 0) {
+    if (SDL_BuildAudioCVT(&cvt, spec.format, spec.channels, spec.freq, AUDIO_S16SYS, 2, 44100) < 0) {
         SDL_FreeWAV(raw);
         return false;
     }
@@ -57,10 +57,10 @@ bool AudioStart(const std::vector<uint8_t>& wav, float volume)
 
     SDL_AudioSpec want, have;
     SDL_zero(want);
-    want.freq = spec.freq;
+    want.freq = 44100;
     want.format = AUDIO_S16SYS;
-    want.channels = spec.channels;
-    want.samples = 2048;
+    want.channels = 2;
+    want.samples = 1024;
     want.callback = Callback;
     s_dev = SDL_OpenAudioDevice(nullptr, 0, &want, &have, 0);
     if (!s_dev) {
