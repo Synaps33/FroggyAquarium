@@ -1,6 +1,6 @@
 # Marine Aquarium 2.0 for the R36S
 ---
-Ported from the original 2000's era screensaver that was included with a Windows PC purchase. All necessary files are included.
+Ported from the original 2000's era screensaver that was included with a Windows PC purchase. Requires the data.cab and data.h files from the Marine Aquarium 2003 install CD placed in the /Aquarium folder.
 
 <p align=center>
 <img width="640" height="179" alt="setup" src="https://github.com/user-attachments/assets/95d036ac-79bd-42db-b3d9-92d94d20d517" />
