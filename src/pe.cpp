@@ -1,6 +1,7 @@
 // Minimal PE32 resource reader for the Marine Aquarium 2 .scr.
 #include "pe.h"
 #include <strings.h>
+#include <cstdio>
 
 static uint32_t R32(const std::vector<uint8_t>& b, size_t o)
 {
@@ -40,7 +41,11 @@ bool PeResources::Load(std::vector<uint8_t>&& img, std::string& err)
     if (base == (size_t)-1) { err = "no resource section"; return false; }
 
     auto nameOf = [&](uint32_t id) -> std::string {
-        if (!(id & 0x80000000u)) return std::to_string(id);
+        if (!(id & 0x80000000u)) {
+            char buf[16];
+            snprintf(buf, sizeof(buf), "%u", id);
+            return std::string(buf);
+        }
         size_t o = base + (id & 0x7fffffffu);
         uint16_t len = R16(img, o);
         std::string s;

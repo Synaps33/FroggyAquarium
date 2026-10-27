@@ -1,0 +1,23 @@
+# build outputs
+build_host/
+build_mips/
+build_sf2000/
+*.o
+*.a
+runner/libretro_runner_mips
+runner/aquarium_runner_mips
+
+# original game data (never commit)
+assets/data1.hdr
+assets/data1.cab
+assets/*.scr
+assets/Marine Aquarium 2.scr
+assets/Marine_Aquarium_2.scr
+
+# generated test output
+screenshots/**/*.ppm
+*.log
+
+# release binaries are attached to releases, not committed
+dist/*.sf2k
+dist/*.gb3k

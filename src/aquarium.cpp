@@ -9,6 +9,7 @@
 #include <cstdio>
 #include <strings.h>
 #include <ctime>
+#include <cstdlib>
 
 // ---------------------------------------------------------------- memory access
 #define GADDR(a)  (&g_mem[(size_t)((a) - 0x424000u)])
@@ -187,7 +188,11 @@ bool Aquarium::LoadFish(std::string& err)
     m_chosen.assign(GI(0x427ddc), std::string());
     for (int k = 0; k < GI(0x427ddc); k++) m_chosen[k] = m_slots[k];
 
-    msrand((uint32_t)time(nullptr));   // original: srand(timeGetTime())
+    {
+        // Port hook: AQUARIUM_SEED makes startup deterministic for testing.
+        const char* sd = getenv("AQUARIUM_SEED");
+        msrand(sd ? (uint32_t)strtoul(sd, nullptr, 0) : (uint32_t)time(nullptr));
+    }
     int count = 0;
     for (int k = 0; k < GI(0x427ddc); k++) {
         if (count >= GI(0x42cd68)) break;
